@@ -22,7 +22,7 @@ const Explore = () => {
   const shouldShowPosts = !shouldShowSearchResults && posts?.pages.every((item) => item.documents.length === 0);
 
   useEffect(() => {
-    if(inView && !searchValue) {
+    if(inView  && !searchValue) {
       fetchNextPage();
     }
   }, [inView, searchValue])
@@ -78,6 +78,7 @@ const Explore = () => {
         {shouldShowSearchResults ? (
           <SearchResults
             isSearchFetching={isSearchFetching} 
+            // @ts-ignore
             searchedPosts={searchedPosts}
           />
         ): shouldShowPosts ? (
