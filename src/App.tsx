@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import './globals.css';
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import SignInForm from './_auth/forms/SignInForm';
 import SignUpForm from './_auth/forms/SignUpForm';
 import { AllUsers, CreatePost, EditPost, Explore, Home, PostDetails, Profile, Saved, UpdateProfile } from './_root/pages';
@@ -34,6 +34,7 @@ const App = () => {
         </Routes>
 
         <Toaster />
+        <SpeedInsights />
     </main>
   )
 }
