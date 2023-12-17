@@ -60,11 +60,12 @@ const SignUpForm = () => {
     })
     
 
-    if(!session){
-      setIsLoading(false)
-      return toast({
-        title: "Sign up failed. Please try again. ERROR: NO_NEW_SESSION"
-      })
+    if (!session) {
+      toast({ title: "Something went wrong. Please login your new account", });
+      
+      navigate("/sign-in");
+      
+      return;
     }
     
     const isLoggedIn = await checkAuthUser();
