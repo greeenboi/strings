@@ -7,13 +7,14 @@ import { useSignOutAccount } from '@/lib/react-query/queriesAndMutations'
 import { useUserContext } from '@/context/AuthContext'
 import { sidebarLinks } from '@/constants'
 import { INavLink } from '@/types'
+import Loader from './Loader'
 
 
 
 const LeftSidebar = () => {
 
   const { pathname } = useLocation()
-  const{ mutate: signOut, isSuccess } = useSignOutAccount()
+  const{ mutate: signOut, isPending: isSigningout ,isSuccess } = useSignOutAccount()
   const navigate = useNavigate()
   const { user } = useUserContext()
 
@@ -82,11 +83,18 @@ const LeftSidebar = () => {
         variant="ghost" 
         className='shad-button_ghost'
         onClick={() => signOut()}
+        disabled={isSigningout}
       >
-        <img src={Logout} alt="logout" />
-        <p className='small-medium lg:base-medium'>
-          Logout
-        </p>
+        {isSigningout? (          
+            <p className='flex items-center gap-2'><Loader /> Logging out...</p>
+        ): (
+          <>
+            <img src={Logout} alt="logout" />
+            <p className='small-medium lg:base-medium'>
+              Logout
+            </p>
+          </>
+        )}
       </Button>
     </nav>
   )

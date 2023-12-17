@@ -5,12 +5,13 @@ import Logout from "/assets/icons/logout.svg"
 import { Button } from '../ui/button'
 import { useSignOutAccount } from '@/lib/react-query/queriesAndMutations'
 import { useUserContext } from '@/context/AuthContext'
+import Loader from './Loader'
 
 
 
 const Topbar = () => {
 
-  const{ mutate: signOut, isSuccess } = useSignOutAccount()
+  const{ mutate: signOut, isPending: isSigningout ,isSuccess } = useSignOutAccount()
   const navigate = useNavigate()
   const { user } = useUserContext()
 
@@ -37,8 +38,17 @@ const Topbar = () => {
                 variant="ghost" 
                 className='shad-button_ghost'
                 onClick={() => signOut()}
+                disabled={isSigningout}
               >
-                <img src={Logout} alt="logout" />
+                {
+                  isSigningout ? (
+                    <div className='flex-center'>
+                      <Loader />
+                    </div>
+                  ) : (
+                    <img src={Logout} alt="logout" />
+                  )
+                }
               </Button>
               <Link to={`/profile/${user.id}`} className='flex-center gap-3'>
                 <img 
