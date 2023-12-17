@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import './globals.css';
+import { inject } from '@vercel/analytics';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import SignInForm from './_auth/forms/SignInForm';
 import SignUpForm from './_auth/forms/SignUpForm';
@@ -8,6 +9,8 @@ import AuthLayout from './_auth/AuthLayout';
 import RootLayout from './_root/RootLayout';
 
 import { Toaster } from "@/components/ui/toaster"
+
+inject();
 
 const App = () => {
   return (
