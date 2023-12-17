@@ -176,3 +176,4 @@ export const useSearchPosts = (searchTerm: string) => {
         enabled: !!searchTerm,
     })
 }
+
