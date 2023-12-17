@@ -50,7 +50,7 @@ const SignInForm = () => {
     
     if(!session){
       return toast({
-        title: "Sign in failed. Please try again."
+        title: "Sign in failed. Please try again. ERROR: NO_SESSION"
       })
     }
     
@@ -63,7 +63,7 @@ const SignInForm = () => {
       navigate('/');
     } else {
       return toast({
-        title: "Sign in failed. Please try again."
+        title: "Sign in failed. Please try again. ERROR: NO_USER"
       })
     }
   }
