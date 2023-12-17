@@ -20,16 +20,17 @@ import Loader from '@/components/shared/Loader'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCreateUseAccount, useSignInAccount } from '@/lib/react-query/queriesAndMutations'
 import { useUserContext } from '@/context/AuthContext'
+import { useState } from 'react'
 
 const SignUpForm = () => {
   
   const { toast } = useToast()
   const { checkAuthUser } = useUserContext()
   const navigate = useNavigate();
+  const [ isLoading, setIsLoading ] = useState(false)
+  const { mutateAsync: createUserAccount } = useCreateUseAccount();
 
-  const { mutateAsync: createUserAccount , isPending: isCreatingAccount} = useCreateUseAccount();
-
-  const { mutateAsync: signInAccount, isPending: isSigningin} = useSignInAccount();
+  const { mutateAsync: signInAccount} = useSignInAccount();
 
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -42,13 +43,14 @@ const SignUpForm = () => {
   })
 
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    
+    setIsLoading(true)
 
     const newUser = await createUserAccount(values)
 
     if(!newUser){
+      setIsLoading(false)
       return toast({
-        title: "Sign up failed. Please try again."
+        title: "Sign up failed. Please try again. ERROR: NO_NEW_USER"
       })
     } 
 
@@ -59,8 +61,9 @@ const SignUpForm = () => {
     
 
     if(!session){
+      setIsLoading(false)
       return toast({
-        title: "Sign up failed. Please try again."
+        title: "Sign up failed. Please try again. ERROR: NO_NEW_SESSION"
       })
     }
     
@@ -68,11 +71,12 @@ const SignUpForm = () => {
 
     if(isLoggedIn){
       form.reset()
-
+      setIsLoading(false)
       navigate('/');
     } else {
+      setIsLoading(false)
       return toast({
-        title: "Sign up failed. Please try again."
+        title: "Sign up failed. Please try again. ERORR: NOT_LOGGED_IN"
       })
     }
   }
@@ -140,7 +144,7 @@ const SignUpForm = () => {
           />
           <Button type="submit" className='shad-button_primary'>
             {
-              isCreatingAccount || isSigningin ? (
+              isLoading ? (
                 <div className='flex-center gap-2'>
                   <Loader /> Loading...
                 </div>
