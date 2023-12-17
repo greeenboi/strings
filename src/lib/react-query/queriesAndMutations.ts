@@ -7,7 +7,7 @@ import {
 import { CreatePost, UpdatePost, createUserAccount, deletePost, deleteSavedPost, getCurrentUser, getInfinitePosts, getPostById, getRecentPosts, likePost, savePost, searchPosts, signInAccount, signOutAccount  } from '../appwrite/api'
 import { INewUser, INewPost, IUpdatePost } from '@/types'
 import { QUERY_KEYS } from './queryKeys'
-import { Query } from 'appwrite'
+
 
 export const useCreateUseAccount = () => {
     return useMutation({

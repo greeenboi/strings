@@ -17,6 +17,8 @@ const Home = () => {
           </h2>
           {isPostLoading && !posts ? (
             <Loader />
+          ) : isErrorPosts ? (
+            <div>Error loading posts</div>
           ) : (
             <ul className='flex flex-col flex-1 gap-9 w-full'>
               {

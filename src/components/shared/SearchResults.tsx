@@ -11,9 +11,10 @@ type SearchResultsProps = {
 const SearchResults = ({ isSearchFetching, searchedPosts }: SearchResultsProps) => {
  
   if(isSearchFetching) return <Loader />
-
+  //@ts-ignore
   if(searchedPosts && searchedPosts.documents.length > 0) {
     return (
+      //@ts-ignore
       <GridPostList posts={searchedPosts.documents}/>
     )
   }
